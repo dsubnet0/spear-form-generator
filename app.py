@@ -4,7 +4,7 @@ app = Flask('Spear Form Generator')
 
 TROJAN_HORSE = ['Hands on hips','Arms folded', 'Negotiator', 'Half negotiator', 'Jack Benny']
 COMBATIVES = ['Index palm', 'Rear index palm', 'SPEAR stance',
-                'Full SPEAR', 'Rear up elbow','Front horizontal elbow', 
+                'Full SPEAR', 'Vertical elbow','Horizontal elbow', 
                 'Downward half-SPEAR', 'Punching knee', 'Jackhammer front kick',
                 'Downward full SPEAR', 'X-axis shin kick', 'Low SPEAR']
 
@@ -19,10 +19,16 @@ def generate_random_move_list(number_of_moves=10):
         
     while len(my_list) < number_of_moves:
         next_move = ''
-        next_move = random.choice(COMBATIVES)
+        if random.randint(1,10) == 5:
+            next_move = tank_turret()
+        else:
+            next_move = random.choice(COMBATIVES)
         if len(my_list)>0 and next_move == my_list[-1]: continue
         my_list.append(next_move)
     return my_list
+
+def tank_turret():
+    return f"Threat at {random.randint(1,12)} o'clock"
 
 @app.route('/')
 def index():
